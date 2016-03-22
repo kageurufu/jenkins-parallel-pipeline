@@ -1,0 +1,19 @@
+Feature: Tests (I)
+  Background:
+    Given a test harness
+
+  Scenario: Test (I).1
+    When we do a thing
+    And wait (I) seconds
+    Then we should pass
+
+  Scenario Outline: A basic outline test for (I)
+    When we do a thing
+    And wait <time> seconds
+    Then we should pass
+
+    Examples:
+      | time |
+      | 5    |
+      | 10   |
+      | 15   |

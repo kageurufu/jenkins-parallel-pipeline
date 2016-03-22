@@ -1,0 +1,23 @@
+#!/bin/bash
+
+clean() {
+  rm features/test_*.feature
+  rm tests/test_even_odd_*.py
+}
+
+build_tests() {
+  COUNT=${1}
+  
+  for i in $(seq 1 $COUNT); do
+    sed -e "s/IVALI/${i}/" tests/tmpl.py > tests/test_even_odd_${i}.py
+    sed -e "s/(I)/${i}/" features/blank.tmpl > features/test_${i}.feature
+  done
+}
+
+main() {
+  clean
+
+  build_tests 10
+}
+
+main
