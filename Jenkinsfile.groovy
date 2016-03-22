@@ -38,16 +38,14 @@ node {
 }
 
 stage 'Tests'
-for(test in test_list) {
+for(int i = 0; i < test_list.size(); i++) {
+    def test = test_list.get(i)
     branches[test] = {
         node {
             checkout scm
             unstash 'virtualenv'
 
-            sh '''
-            . virtualenv/bin/activate
-            ${test}
-            '''
+            sh '. virtualenv/bin/activate; ${test}'
         }
     }
 }
