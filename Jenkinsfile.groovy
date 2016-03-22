@@ -13,5 +13,10 @@ node {
         find tests -iname \'test_*.py\' > nose_tests_list;
     '''
     
-    echo readFile('behave_features_list').tokenize().collect({ 'behave ' + it }).toString()
+    def behave_features = readFile('behave_features_list').tokenize()
+    def nose_tests = readFile('nose_tests_list').tokenize()
+    
+    behave_features.collect({ 'behave ' + it })
+
+    echo behave_features.toString()
 }
