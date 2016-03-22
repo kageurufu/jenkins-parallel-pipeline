@@ -1,5 +1,5 @@
 def branches = [:]
-def test_list
+def test_list 
 
 def collectTests = {
     // Build a list of all tests to run
@@ -10,11 +10,12 @@ def collectTests = {
     
     def behave_features = readFile('behave_features_list').tokenize()
     def nose_tests = readFile('nose_tests_list').tokenize()
+    def tests = new ArrayList<String>();  
     
-    echo behave_features.toString()
-    echo nose_tests.toString()
+    for (feature in behave_features) { tests.add('behave ' + feature) }
+    for (test in nose_tests) { tests.add('nosetests ' + test) }
 
-    behave_features.collect({ 'behave ' + it }) + nose_tests.collect({ 'nosetests ' + it })
+    tests
 }
 
 stage 'Preparation'
