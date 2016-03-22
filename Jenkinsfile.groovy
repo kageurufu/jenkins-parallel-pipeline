@@ -10,7 +10,7 @@ def collectTests = {
     
     def behave_features = readFile('behave_features_list').tokenize()
     def nose_tests = readFile('nose_tests_list').tokenize()
-    def tests = new ArrayList<String>();  
+    def tests = []
     
     for (feature in behave_features) { tests.add('behave ' + feature) }
     for (test in nose_tests) { tests.add('nosetests ' + test) }
