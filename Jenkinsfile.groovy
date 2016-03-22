@@ -25,7 +25,7 @@ def buildVirtualenv = {
     pip install -r requirements.txt
     '''
 
-    stash name: 'virtualenv', includes: 'virtualenv/**'
+    stash name: 'src', includes: '**'
 }
 
 stage 'Preparation'
@@ -42,8 +42,7 @@ for(int i = 0; i < test_list.size(); i++) {
     def test = test_list.get(i)
     branches[test] = {
         node {
-            checkout scm
-            unstash 'virtualenv'
+            unstash 'src'
 
             sh '. virtualenv/bin/activate; ${test}'
         }
