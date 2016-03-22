@@ -13,5 +13,5 @@ node {
         find tests -iname \'test_*.py\' > nose_tests_list;
     '''
     
-    echo readFile('behave_features_list').tokenize().toString()
+    echo readFile('behave_features_list').tokenize().collect({ 'behave ' + it }).toString()
 }
