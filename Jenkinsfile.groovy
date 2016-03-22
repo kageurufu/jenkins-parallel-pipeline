@@ -5,7 +5,7 @@ def nose_tests_list
 
 stage 'Preparation'
 node {
-    git credentialsId: 'e43c6744-c541-4970-88ae-d439baba6b24', url: 'git@github.com:DisruptiveLabs/comanage.git'
+    checkout scm
 
     // Build a list of all tests to run
     sh '''
