@@ -16,7 +16,5 @@ node {
     def behave_features = readFile('behave_features_list').tokenize()
     def nose_tests = readFile('nose_tests_list').tokenize()
     
-    behave_features.collect({ 'behave ' + it })
-
-    echo behave_features.toString()
+    behave_features.collect({ 'behave ' + it }).each({ echo it })
 }
