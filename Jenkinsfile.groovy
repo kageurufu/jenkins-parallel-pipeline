@@ -1,12 +1,7 @@
 def branches = [:]
 def test_list
-def behave_features_list
-def nose_tests_list
 
-stage 'Preparation'
-node {
-    checkout scm
-
+def collectTests = {
     // Build a list of all tests to run
     sh '''
         find features -iname \'*.feature\' > behave_features_list;
@@ -18,3 +13,12 @@ node {
     
     behave_features.each({ println 'behave ' + it })
 }
+
+stage 'Preparation'
+node {
+    checkout scm
+
+    test_list = collectTests()
+}
+
+echo test_list.toString()
