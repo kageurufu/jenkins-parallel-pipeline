@@ -11,7 +11,10 @@ def collectTests = {
     def behave_features = readFile('behave_features_list').tokenize()
     def nose_tests = readFile('nose_tests_list').tokenize()
     
-    behave_features.each({ println 'behave ' + it })
+    echo behave_features.toString()
+    echo nose_tests.toString()
+
+    behave_features.collect({ 'behave ' + it }) + nose_tests.collect({ 'nosetests ' + it })
 }
 
 stage 'Preparation'
