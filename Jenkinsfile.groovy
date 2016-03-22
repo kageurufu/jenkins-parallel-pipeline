@@ -18,11 +18,39 @@ def collectTests = {
     tests
 }
 
+def buildVirtualenv = {
+    sh '''
+        virtualenv -p `which python2` virtualenv
+        . virtualenv/bin/activate
+        pip install -r requirements.txt
+    '''
+
+    stash name: 'virtualenv', includes: 'virtualenv/**'
+}
+
+def makeTest(test) {
+    return {
+        node {
+            unstash 'virtualenv'
+            sh '''
+                . virtualenv/bin/activate
+                ${test}
+            '''
+        }
+    }
+}
+
 stage 'Preparation'
 node {
     checkout scm
 
     test_list = collectTests()
+
+    buildVirtualenv()
 }
 
-echo test_list.toString()
+stage 'Tests'
+for(test in test_list) {
+    branches[test] = makeTest(test)
+}
+parallel(branches)
