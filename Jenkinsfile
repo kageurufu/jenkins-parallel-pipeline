@@ -36,7 +36,6 @@ for(int i = 0; i < test_list.size(); i++) {
             unstash 'src'
 
             sh """
-            echo \$TEST_VAR $TEST_VAR
             virtualenv -p `which python2` virtualenv
             . virtualenv/bin/activate
             pip install -r requirements.txt
