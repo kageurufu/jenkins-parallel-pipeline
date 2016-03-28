@@ -17,7 +17,7 @@ build_tests() {
 main() {
   clean
 
-  build_tests 10
+  build_tests 3
 }
 
 main
