@@ -40,7 +40,10 @@ for(int i = 0; i < test_list.size(); i++) {
         node {
             unstash 'src'
 
-            sh '. virtualenv/bin/activate; ${test}'
+            sh '''
+            . virtualenv/bin/activate 
+            ${test}
+            '''
         }
     }
 }
