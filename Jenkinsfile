@@ -15,19 +15,17 @@ def collectTests = {
     tests
 }
 
-def buildVirtualenv = {
-    shWithVirtualenv "pip install -r requirements.txt"
-}
-
 def shWithVirtualenv = { String command ->
     sh '''
     virtualenv -p `which python2` virtualenv
     . virtualenv/bin/activate
+    pip install -r requirements.txt
     ${command}
     '''
 }
 
 stage 'Preparation'
+
 node {
     checkout scm
 
@@ -41,9 +39,7 @@ for(int i = 0; i < test_list.size(); i++) {
     branches[test] = {
         node {
             unstash 'src'
-            buildVirtualenv()
-
-            shWithVirtualenv test
+            shWithVirtualenv(test)
         }
     }
 }
