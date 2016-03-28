@@ -1,4 +1,5 @@
 #!groovy
+env.TEST_VAR = "This is a test"
 
 def branches = [:]
 def test_list
@@ -16,12 +17,6 @@ def collectTests = {
 }
 
 def shWithVirtualenv = { String command ->
-    sh """
-    virtualenv -p `which python2` virtualenv
-    . virtualenv/bin/activate
-    pip install -r requirements.txt
-    ${command}
-    """
 }
 
 stage 'Preparation'
@@ -39,8 +34,14 @@ for(int i = 0; i < test_list.size(); i++) {
     branches[test] = {
         node {
             unstash 'src'
-            
-            shWithVirtualenv(test)
+
+            sh """
+            echo \$TEST_VAR $TEST_VAR
+            virtualenv -p `which python2` virtualenv
+            . virtualenv/bin/activate
+            pip install -r requirements.txt
+            ${test}
+            """
         }
     }
 }
