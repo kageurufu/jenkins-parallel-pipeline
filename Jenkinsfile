@@ -26,7 +26,7 @@ node {
 
     test_list = collectTests()
 
-    stash name: 'src', includes: '**'
+    stash name: 'src', includes: '**', excludes: 'virtualenv/**'
 }
 
 for(int i = 0; i < test_list.size(); i++) {
