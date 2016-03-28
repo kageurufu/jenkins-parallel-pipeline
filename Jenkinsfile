@@ -20,8 +20,7 @@ def shWithVirtualenv = { String command ->
     virtualenv -p `which python2` virtualenv
     . virtualenv/bin/activate
     pip install -r requirements.txt
-    ${command}
-    '''
+    ''' + command
 }
 
 stage 'Preparation'
